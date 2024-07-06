@@ -5,35 +5,75 @@ import VueCookies from "vue-cookies";
 import Cookies from "js-cookie";
 import router from "./router/router";
 import store from "./store/store";
-// import NotificationComponent from "./components/NotificationComponent.vue";
-// import io from "socket.io-client";
-import VueFlatpickr from "vue-flatpickr-component";
-import "vue-search-select/dist/VueSearchSelect.css";
+
+// import "../public/assets/vendors/mdi/css/materialdesignicons.min.css"
+// import "../public/assets/vendors/css/vendor.bundle.base.css"
+// import "../public/assets/css/style.css"
 
 // Import the Flatpickr CSS
-import "flatpickr/dist/flatpickr.css";
-// Set default base URL for Axios requests
-axios.defaults.baseURL = "https://cobrancasbackend.onrender.com/";
-// axios.defaults.baseURL = "http://localhost:8000";
 
-// Add an Axios interceptor for handling 401 status code
+// Set default base URL for Axios requests
+// axios.defaults.baseURL = "https://cobrancasbackend.onrender.com/";
+axios.defaults.baseURL = "http://localhost:8000";
+
+// Adicionando o interceptor para tratamento de erros de autorização (401)
+let isHandlingUnauthorized = false;
+
 axios.interceptors.response.use(
   function (response) {
     return response;
   },
-  function (error) {
-    if (error.response && error.response.status === 401) {
-      let msg = error.response.data.returnMessage;
-      Cookies.set("logoutReason", msg);
-      const response = axios.get("/api/logout");
-      if (response.data.success) {
-        Cookies.remove("token");
-        router.push("/login");
+  async function (error) {
+    if (error.response && error.response.status === 401 && !isHandlingUnauthorized) {
+      isHandlingUnauthorized = true; // Indica que o erro 401 está sendo tratado
+
+      const token = Cookies.get("token");
+      try {
+        if (token) {
+          const verifyResponse = await axios.get("/api/check/verify-token", {
+            headers: {
+              token: token,
+            },
+          });
+
+          // Se o token for inválido, realiza o logout
+          if (!verifyResponse.data.valid) {
+            await performLogout(token);
+          }
+        } else {
+          await performLogout();
+        }
+      } catch (verifyTokenError) {
+        console.error("Erro ao verificar token:", verifyTokenError);
+        await performLogout(token);
+      } finally {
+        isHandlingUnauthorized = false; // Reseta a flag após tratar o erro
       }
     }
     return Promise.reject(error);
   }
 );
+
+async function performLogout(token) {
+  try {
+    if (token) {
+      await axios.get("/api/logout", {
+        headers: {
+          token: token,
+        },
+      });
+    }
+  } catch (logoutError) {
+    console.error("Erro ao realizar logout:", logoutError);
+  } finally {
+    Cookies.remove("token");
+    Cookies.remove("role");
+    VueCookies.remove("token");
+    router.push("/");
+  }
+}
+
+
 
 const app = createApp(App);
 
@@ -64,5 +104,5 @@ app.use(store);
 //   console.log("Socket disconnected");
 //   app.config.globalProperties.$socketStatus = "disconnected";
 // });
-app.component("vue-flatpickr", VueFlatpickr);
+
 app.mount("#app");

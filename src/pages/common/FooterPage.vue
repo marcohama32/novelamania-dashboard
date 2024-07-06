@@ -1,12 +1,20 @@
 <template>
   <div>
-    <div class="footer">
-      <div class="copyright">
-        <p>
-          Copyright © 
-          <a href="javascript:;">MENTOR</a> 2023
-        </p>
+    <footer class="footer">
+      <div class="container-fluid clearfix">
+        <span
+          class="text-muted d-block text-center text-sm-left d-sm-inline-block"
+          >Copyright © NovelaMania 2024</span
+        >
       </div>
-    </div>
+    </footer>
   </div>
 </template>
+
+<!-- <style>
+.newsletter-area {
+  background-image: url("./../../../public/img/bg/newsletter_bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+</style> -->

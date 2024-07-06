@@ -1,126 +1,163 @@
 <template>
   <div>
-    <!--**********************************
-            Sidebar start
-        ***********************************-->
-    <div class="deznav">
-      <div class="deznav-scroll">
-        <ul class="metismenu" id="menu">
-          <li v-if="hasRoute('Dashboard')">
-            <a class="ai-icon" href="/" aria-expanded="false">
-              <i class="flaticon-381-networking"></i>
-              <span class="nav-text">Home</span>
-            </a>
-          </li>
-          <li v-if="hasRoute('View Clientes')">
-            <a
-              href="page-error-404.html"
-              class="ai-icon has-arrow"
-              aria-expanded="false"
-            >
-              <i class="flaticon-381-settings-2"></i>
-              <span class="nav-text">Clientes</span>
-            </a>
-            <ul aria-expanded="false">
-              <li v-if="hasRoute('View Clientes')"><router-link to="/addclientes">Registrar</router-link></li>
-              <li v-if="hasRoute('View Clientes')"><router-link to="/listarclientes">Listar</router-link></li>
-            </ul>
-          </li>
-          <li v-if="hasRoute('View Cobrancas')">
-            <a
-              class="has-arrow ai-icon"
-              href="javascript:;"
-              aria-expanded="false"
-            >
-              <i class="flaticon-381-controls-3"></i>
-              <span class="nav-text">Cobrancas</span>
-            </a>
-            <ul aria-expanded="false">
-              <li v-if="hasRoute('Add Cobrancas')"><router-link to="/addcobranca">Processar</router-link></li>
-              <li v-if="hasRoute('View Cobrancas')"><router-link to="/listarcobrancas">Listar</router-link></li>
-            </ul>
-          </li>
-          <li v-if="hasRoute('Listar Despesas')">
-            <a
-              class="has-arrow ai-icon"
-              href="javascript:void()"
-              aria-expanded="false"
-            >
-              <i class="flaticon-381-layer-1"></i>
-              <span class="nav-text">Despesas</span>
+    <nav class="sidebar sidebar-offcanvas mt-4" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item">
+          <router-link to="/" class="nav-link">
+            <span class="menu-title">Dashboard</span>
+            <i class="mdi mdi-home menu-icon"></i>
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            href="#ui-basic"
+            aria-expanded="false"
+            aria-controls="ui-basic"
+          >
+            <span class="menu-title">Novelas e Doramas</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-filmstrip menu-icon"></i>
           </a>
-            <ul aria-expanded="false">
-              <li v-if="hasRoute('Listar Despesas')"><router-link to="/adddespesa">Registrar</router-link></li>
-              <li v-if="hasRoute('Listar Despesas')"><router-link to="/listardespesas">Listar</router-link></li>
+          <div class="collapse" id="ui-basic">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item">
+                <router-link to="/addcontent" class="nav-link">Add</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/viewcontent" class="nav-link"
+                  >View</router-link
+                >
+              </li>
             </ul>
-          </li>
-          <li v-if="hasRoute('Listar Servicos')">
-            <a
-              class="has-arrow ai-icon"
-              href="javascript:void()"
-              aria-expanded="false"
-            >
-              <i class="flaticon-381-heart"></i>
-              <span class="nav-text">Servicos</span>
-            </a>
-            <ul aria-expanded="false">
-              <li v-if="hasRoute('Listar Servicos')"><router-link to="/addservico">Registrar</router-link></li>
-              <li v-if="hasRoute('Listar Servicos')"><router-link to="/listarservicos">Listar</router-link></li>
-            </ul>
-          </li>
-          <li v-if="hasRoute('Listar Analises')">
-            <a
-              class="has-arrow ai-icon"
-              href="javascript:void()"
-              aria-expanded="false"
-            >
-              <i class="flaticon-381-notepad"></i>
-              <span class="nav-text">Relatorios</span>
-            </a>
-            <ul aria-expanded="false">
-              <!-- <li><a href="javascript:;">Mensal</a></li>
-              <li><a href="javascript:;">Anual</a></li> -->
-              <li><router-link to="/relatorios" href="javascript:;">Analises</router-link></li>
-            </ul>
-          </li>
-          <li v-if="hasRoute('Listar Analises')">
-            <a
-              class="has-arrow ai-icon"
-              href="javascript:void()"
-              aria-expanded="false"
-            >
-             <i class="flaticon-381-layer-1"></i>
-              <span class="nav-text">Usuarios</span>
-            </a>
-            <ul aria-expanded="false">
-              <li><router-link to="/addusuario" href="javascript:;">Registrar</router-link></li>
-              <li><router-link to="/listarusuarios" href="javascript:;">Listar</router-link></li>
-            </ul>
-          </li>
-          <!-- <li>
-            <a
-              class="has-arrow ai-icon"
-              href="javascript:void()"
-              aria-expanded="false"
-            >
-              <i class="flaticon-381-network"></i>
-              <span class="nav-text">Comunicados</span>
-            </a>
-            <ul aria-expanded="false">
-              <li><a href="javascript:;">Registrar</a></li>
-              <li><a href="javascript:;">Gerir</a></li>
-            </ul>
-          </li> -->
-        </ul>
+          </div>
+        </li>
 
-        <div class="copyright">
-          <p><strong>Mentor</strong> © 2023</p>
-        </div>
-      </div>
-    </div>
-    <!--**********************************
-            Sidebar end
-        ***********************************-->
+      
+
+        <!-- <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            href="#general-pagess"
+            aria-expanded="false"
+            aria-controls="general-pagess"
+          >
+            <span class="menu-title">Livros</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+          </a>
+          <div class="collapse" id="general-pagess">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item">
+                <router-link to="/addlivros" class="nav-link">
+                  Add
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/viewlivros" class="nav-link">
+                  View
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li> -->
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            href="#general-pagesss"
+            aria-expanded="false"
+            aria-controls="general-pagesss"
+          >
+            <span class="menu-title">Clientes</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-account-multiple menu-icon"></i>
+          </a>
+          <div class="collapse" id="general-pagesss">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item">
+                <router-link to="/addclientes" class="nav-link">
+                  Add
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/viewclientes" class="nav-link">
+                  View
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            href="#general-pages"
+            aria-expanded="false"
+            aria-controls="general-pages"
+          >
+            <span class="menu-title">Pacotes</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-package-variant menu-icon"></i>
+          </a>
+          <div class="collapse" id="general-pages">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item">
+                <router-link to="/addpacotes" class="nav-link">
+                  Add
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/viewpacotes" class="nav-link">
+                  View
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item sidebar-actions">
+          <span class="nav-link">
+            <div class="">
+              <div class="border-bottom">
+                <p class="text-secondary">Admin</p>
+              </div>
+            </div>
+          </span>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-toggle="collapse"
+            href="#general-pagessss"
+            aria-expanded="false"
+            aria-controls="general-pagessss"
+          >
+            <span class="menu-title">Usuarios</span>
+            <i class="menu-arrow"></i>
+            <i class="mdi mdi-account menu-icon"></i>
+          </a>
+          <div class="collapse" id="general-pagessss">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item">
+                <router-link to="/addusuarios" class="nav-link">
+                  Add
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/viewusuarios" class="nav-link">
+                  View
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 

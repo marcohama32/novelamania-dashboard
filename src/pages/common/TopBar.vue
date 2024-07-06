@@ -1,263 +1,251 @@
 <template>
   <div>
-    <!--*******************
-        Preloader start
-    ********************-->
-    <!-- <div id="preloader">
-      <div class="sk-three-bounce">
-        <div class="sk-child sk-bounce1"></div>
-        <div class="sk-child sk-bounce2"></div>
-        <div class="sk-child sk-bounce3"></div>
+    <nav
+      class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row"
+    >
+      <div
+        class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"
+      >
+        <router-link to="/"  class="navbar-brand brand-logo"
+          >
+          <img src="" alt="NovelaMania"
+        />
+      </router-link>
+        <a class="navbar-brand brand-logo-mini" href="index-2.html"
+          ><img src="/assets/images/logo-mini.svg" alt="logo"
+        /></a>
       </div>
-    </div> -->
-    <!--*******************
-        Preloader end
-    ********************-->
-
-    <!--**********************************
-            Nav header start
-        ***********************************-->
-    <div class="nav-header">
-      <a href="/" class="brand-logo">
-        <img class="logo-abbr" src="/dist/images/logo.png" alt="" />
-        <img class="logo-compact" src="/dist/images/mentortext.png" alt="" />
-        <img class="brand-title" src="/dist/images/mentortext.png" alt="" />
-      </a>
-
-      <div class="nav-control">
-        <div class="hamburger">
-          <span class="line"></span><span class="line"></span
-          ><span class="line"></span>
-        </div>
-      </div>
-    </div>
-    <!--**********************************
-            Nav header end
-        ***********************************-->
-    <!--**********************************
-            Header start
-        ***********************************-->
-    <div class="header">
-      <div class="header-content">
-        <nav class="navbar navbar-expand">
-          <div class="collapse navbar-collapse justify-content-between">
-            <div class="header-left">
-              <div class="dashboard_bar"></div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button
+          class="navbar-toggler navbar-toggler align-self-center"
+          type="button"
+          data-toggle="minimize"
+        >
+          <span class="mdi mdi-menu"></span>
+        </button>
+        <div class="search-field d-none d-md-block">
+          <!-- <form class="d-flex align-items-center h-100" action="#">
+            <div class="input-group">
+              <div class="input-group-prepend bg-transparent">
+                <i class="input-group-text border-0 mdi mdi-magnify"></i>
+              </div>
+              <input
+                type="text"
+                class="form-control bg-transparent border-0"
+                placeholder="Pesquisa"
+              />
             </div>
-            <ul class="navbar-nav header-right">
-              <li class="nav-item">
-                <div class="d-flex weather-detail">
-                  <!-- <span><i class="las la-cloud"></i>21</span> -->
-                  {{ getDateNow() }}
+          </form> -->
+        </div>
+        <ul class="navbar-nav navbar-nav-right">
+          <!-- <li class="nav-item nav-profile dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="profileDropdown"
+              href="#"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="nav-profile-img">
+                <img src="assets/images/faces/face1.jpg" alt="image" />
+                <span class="availability-status online"></span>
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black">David Greymaax</p>
+              </div>
+            </a>
+            <div
+              class="dropdown-menu navbar-dropdown"
+              aria-labelledby="profileDropdown"
+            >
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-logout mr-2 text-primary"></i> Signout
+              </a>
+            </div>
+          </li> -->
+          <li class="nav-item d-none d-lg-block full-screen-link">
+            <a class="nav-link">
+              <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+            </a>
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a
+              class="nav-link count-indicator dropdown-toggle"
+              id="messageDropdown"
+              href="#"
+              data-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="mdi mdi-email-outline"></i>
+              <span class="count-symbol bg-warning"></span>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+              aria-labelledby="messageDropdown"
+            >
+              <h6 class="p-3 mb-0">Messages</h6>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img
+                    src="assets/images/faces/face4.jpg"
+                    alt="image"
+                    class="profile-pic"
+                  />
                 </div>
-              </li>
-              <li class="nav-item dropdown notification_dropdown">
-                <a
-                  class="nav-link bell dz-theme-mode"
-                  href="javascript:void(0);"
+                <div
+                  class="preview-item-content d-flex align-items-start flex-column justify-content-center"
                 >
-                  <i id="icon-light" class="fas fa-sun"></i>
-                  <i id="icon-dark" class="fas fa-moon"></i>
-                </a>
-              </li>
-              <!-- <li class="nav-item dropdown notification_dropdown">
-                <a
-                  class="nav-link ai-icon"
-                  href="javascript:void(0)"
-                  role="button"
-                  data-bs-toggle="dropdown"
+                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">
+                    Mark send you a message
+                  </h6>
+                  <p class="text-gray mb-0">1 Minutes ago</p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img
+                    src="assets/images/faces/face2.jpg"
+                    alt="image"
+                    class="profile-pic"
+                  />
+                </div>
+                <div
+                  class="preview-item-content d-flex align-items-start flex-column justify-content-center"
                 >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 28 28"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M12.6001 4.3008V1.4C12.6001 0.627199 13.2273 0 14.0001 0C14.7715 0 15.4001 0.627199 15.4001 1.4V4.3008C17.4805 4.6004 19.4251 5.56639 20.9287 7.06999C22.7669 8.90819 23.8001 11.4016 23.8001 14V19.2696L24.9327 21.5348C25.4745 22.6198 25.4171 23.9078 24.7787 24.9396C24.1417 25.9714 23.0147 26.6 21.8023 26.6H15.4001C15.4001 27.3728 14.7715 28 14.0001 28C13.2273 28 12.6001 27.3728 12.6001 26.6H6.19791C4.98411 26.6 3.85714 25.9714 3.22014 24.9396C2.58174 23.9078 2.52433 22.6198 3.06753 21.5348L4.20011 19.2696V14C4.20011 11.4016 5.23194 8.90819 7.07013 7.06999C8.57513 5.56639 10.5183 4.6004 12.6001 4.3008ZM14.0001 6.99998C12.1423 6.99998 10.3629 7.73779 9.04973 9.05099C7.73653 10.3628 7.00011 12.1436 7.00011 14V19.6C7.00011 19.817 6.94833 20.0312 6.85173 20.2258C6.85173 20.2258 6.22871 21.4718 5.57072 22.7864C5.46292 23.0034 5.47412 23.2624 5.60152 23.4682C5.72892 23.674 5.95431 23.8 6.19791 23.8H21.8023C22.0445 23.8 22.2699 23.674 22.3973 23.4682C22.5247 23.2624 22.5359 23.0034 22.4281 22.7864C21.7701 21.4718 21.1471 20.2258 21.1471 20.2258C21.0505 20.0312 21.0001 19.817 21.0001 19.6V14C21.0001 12.1436 20.2623 10.3628 18.9491 9.05099C17.6359 7.73779 15.8565 6.99998 14.0001 6.99998Z"
-                      fill="#3E4954"
-                    />
-                  </svg>
-                  <span class="badge light text-white bg-primary rounded-circle"
-                    >12</span
-                  >
-                </a>
-                <div class="dropdown-menu dropdown-menu-end">
-                  <div
-                    id="DZ_W_Notification1"
-                    class="widget-media dz-scroll p-3 height380"
-                  >
-                    <ul class="timeline">
-                      <li>
-                        <div class="timeline-panel">
-                          <div class="media me-2">
-                            <img
-                              alt="image"
-                              width="50"
-                              src="images/avatar/1.jpg"
-                            />
-                          </div>
-                          <div class="media-body">
-                            <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                            <small class="d-block"
-                              >29 July 2023 - 02:26 PM</small
-                            >
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="timeline-panel">
-                          <div class="media me-2 media-info">KG</div>
-                          <div class="media-body">
-                            <h6 class="mb-1">Resport created successfully</h6>
-                            <small class="d-block"
-                              >29 July 2023 - 02:26 PM</small
-                            >
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="timeline-panel">
-                          <div class="media me-2 media-success">
-                            <i class="fa fa-home"></i>
-                          </div>
-                          <div class="media-body">
-                            <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                            <small class="d-block"
-                              >29 July 2023 - 02:26 PM</small
-                            >
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="timeline-panel">
-                          <div class="media me-2">
-                            <img
-                              alt="image"
-                              width="50"
-                              src="images/avatar/1.jpg"
-                            />
-                          </div>
-                          <div class="media-body">
-                            <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                            <small class="d-block"
-                              >29 July 2023 - 02:26 PM</small
-                            >
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="timeline-panel">
-                          <div class="media me-2 media-danger">KG</div>
-                          <div class="media-body">
-                            <h6 class="mb-1">Resport created successfully</h6>
-                            <small class="d-block"
-                              >29 July 2023 - 02:26 PM</small
-                            >
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="timeline-panel">
-                          <div class="media me-2 media-primary">
-                            <i class="fa fa-home"></i>
-                          </div>
-                          <div class="media-body">
-                            <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                            <small class="d-block"
-                              >29 July 2023 - 02:26 PM</small
-                            >
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">
+                    Cregh send you a message
+                  </h6>
+                  <p class="text-gray mb-0">15 Minutes ago</p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <img
+                    src="assets/images/faces/face3.jpg"
+                    alt="image"
+                    class="profile-pic"
+                  />
+                </div>
+                <div
+                  class="preview-item-content d-flex align-items-start flex-column justify-content-center"
+                >
+                  <h6 class="preview-subject ellipsis mb-1 font-weight-normal">
+                    Profile picture updated
+                  </h6>
+                  <p class="text-gray mb-0">18 Minutes ago</p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <h6 class="p-3 mb-0 text-center">4 new messages</h6>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link count-indicator dropdown-toggle"
+              id="notificationDropdown"
+              href="#"
+              data-toggle="dropdown"
+            >
+              <i class="mdi mdi-bell-outline"></i>
+              <span class="count-symbol bg-danger"></span>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+              aria-labelledby="notificationDropdown"
+            >
+              <h6 class="p-3 mb-0">Notifications</h6>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-success">
+                    <i class="mdi mdi-calendar"></i>
                   </div>
-                  <a class="all-notification" href="javascript:void(0)"
-                    >See all notifications <i class="ti-arrow-right"></i
-                  ></a>
                 </div>
-              </li> -->
-
-              <li class="nav-item dropdown header-profile">
-                <a
-                  class="nav-link"
-                  href="javascript:void(0)"
-                  role="button"
-                  data-bs-toggle="dropdown"
+                <div
+                  class="preview-item-content d-flex align-items-start flex-column justify-content-center"
                 >
-                  <div class="header-info">
-                    <span class="text-black"
-                      >Ola, <strong> {{ firstName }}</strong></span
-                    >
-                    <p class="fs-12 mb-0">{{ getRoleName(role) }}</p>
-                  </div>
-                 <img src="/dist/images/logo.png" class="logo" />
-
-                </a>
-                <div class="dropdown-menu dropdown-menu-end">
-                  <router-link to="/perfil" class="dropdown-item ai-icon">
-                    <svg
-                      id="icon-user1"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-primary"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path
-                        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                      ></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span class="ms-2">Perfil </span>
-                  </router-link>
-
-                  <a href="#" @click="logout" class="dropdown-item ai-icon">
-                    <svg
-                      id="icon-logout"
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="text-danger"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                      <polyline points="16 17 21 12 16 7"></polyline>
-                      <line x1="21" y1="12" x2="9" y2="12"></line>
-                    </svg>
-                    <span class="ms-2">Sair </span>
-                  </a>
+                  <h6 class="preview-subject font-weight-normal mb-1">
+                    Event today
+                  </h6>
+                  <p class="text-gray ellipsis mb-0">
+                    Just a reminder that you have an event today
+                  </p>
                 </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-warning">
+                    <i class="mdi mdi-settings"></i>
+                  </div>
+                </div>
+                <div
+                  class="preview-item-content d-flex align-items-start flex-column justify-content-center"
+                >
+                  <h6 class="preview-subject font-weight-normal mb-1">
+                    Settings
+                  </h6>
+                  <p class="text-gray ellipsis mb-0">Update dashboard</p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item preview-item">
+                <div class="preview-thumbnail">
+                  <div class="preview-icon bg-info">
+                    <i class="mdi mdi-link-variant"></i>
+                  </div>
+                </div>
+                <div
+                  class="preview-item-content d-flex align-items-start flex-column justify-content-center"
+                >
+                  <h6 class="preview-subject font-weight-normal mb-1">
+                    Launch Admin
+                  </h6>
+                  <p class="text-gray ellipsis mb-0">New admin wow!</p>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <h6 class="p-3 mb-0 text-center">See all notifications</h6>
+            </div>
+          </li>
+          <li class="nav-item nav-logout d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-power"></i>
+            </a>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-block">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-format-line-spacing"></i>
+            </a>
+          </li> -->
+        </ul>
+        <button
+          class="navbar-toggler navbar-toggler-right d-lg-none align-self-center"
+          type="button"
+          data-toggle="offcanvas"
+        >
+          <span class="mdi mdi-menu"></span>
+        </button>
       </div>
-    </div>
-    <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
+    </nav>
   </div>
 </template>
+
 <script>
+import $ from "jquery";
 import axios from "axios";
 import Cookies from "js-cookie";
 export default {
   data() {
     return {
+      showMobileMenu: false,
       avatar: null,
       routeName: null,
       firstName: "",
@@ -305,32 +293,18 @@ export default {
     },
   },
   methods: {
-    getDateNow() {
-      // Get the current date
-      const currentDate = new Date();
-
-      // Get the current year, month, and day
-      const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() + 1; // Month is zero-based (0-11)
-      const day = currentDate.getDate();
-
-      // Display the current date
-      return `${year}-${month < 10 ? "0" + month : month}-${
-        day < 10 ? "0" + day : day
-      }`;
+    isActiveRoute(route) {
+      return this.$route.path === route;
     },
-    getRoleName(role) {
-      switch (role) {
-        case 1:
-          return "Admin";
-        case 2:
-          return "Gestor";
-        case 3:
-          return "Usuario";
-        default:
-          return "Unknown";
-      }
+    toggleMobileMenu() {
+      console.log("toggleMobileMenu called");
+      this.showMobileMenu = !this.showMobileMenu; // Alterna entre abrir e fechar o menu móvel
     },
+    closeMobileMenu() {
+      console.log("closeMobileMenu called");
+      this.showMobileMenu = false; // Fecha o menu móvel
+    },
+
     async profile() {
       try {
         this.loading = true;
@@ -399,32 +373,33 @@ export default {
       );
       return hasRoute;
     },
-    getRole(role) {
-      if (role === 1) {
-        return "Admin";
-      } else if (role === 2) {
-        return "Gestor";
-      } else if (role === 3) {
-        return "Agente";
-      } else if (role === 4) {
-        return "Cliente";
-      } else if (role === 5) {
-        return "Customer";
-      }
-      {
-        return ""; // Default class if no match
-      }
-    },
   },
   created() {
     this.profile();
   },
-  mounted() {},
+  mounted() {
+    // Código JavaScript para o menu móvel
+    if ($(".mobile-menu").length) {
+      $(".mobile-menu .menu-box .menu-outer").append(
+        $(".menu-area .main-menu").html()
+      );
+
+      $(".mobile-menu li.menu-item-has-children .dropdown-btn").on(
+        "click",
+        function () {
+          $(this).toggleClass("open");
+          $(this).prev("ul").slideToggle(500);
+        }
+      );
+
+      $(".mobile-nav-toggler").on("click", function () {
+        $("body").addClass("mobile-menu-visible");
+      });
+
+      $(".menu-backdrop, .mobile-menu .close-btn").on("click", function () {
+        $("body").removeClass("mobile-menu-visible");
+      });
+    }
+  },
 };
 </script>
-<style>
-.logo {
-  width: 30px !important;
-  height: 30px !important;
-}
-</style>

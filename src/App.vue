@@ -1,25 +1,38 @@
 <template>
   <div>
-    <!-- Authenticated Users -->
-    <div v-if="isAuthenticated && !isLoginRoute" id="main-wrapper">
-      <TopBar />
-      <SideBar />
-
-      <!-- Content Body -->
-      <div class="content-body">
-        <div class="container-fluid">
-          <!-- Home content -->
-          <router-view></router-view>
+    <div v-if="isAuthenticated" class="fullcontent">
+      <div class="container-scroller">
+        <div><TopBar /></div>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+          <SideBar />
+          <!-- partial -->
+          <div class="main-panel">
+            <div class="content-wrapper">
+              <div class="">
+                <router-view
+                  v-if="
+                    isAuthenticated &&
+                    !isLoginRoute &&
+                    !isResetRoute &&
+                    !isForgetRoute
+                  "
+                ></router-view>
+              </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <FooterPage />
+            <!-- partial -->
+          </div>
+          <!-- main-panel ends -->
         </div>
+        <!-- page-body-wrapper ends -->
       </div>
-
-      <FooterPage />
+      <!-- container-scroller -->
     </div>
-
-    <!-- Non-authenticated Users -->
     <div v-else>
-      <!-- Redirect to reset password route when not authenticated -->
-      <router-view v-if="isResetRoute || isForgetRoute"></router-view>
+      <!-- Redirect when not authenticated -->
+      <router-view v-if="isResetRoute || isForgetRoute || isNotFound"></router-view>
 
       <!-- Show login route if not accessing reset route -->
       <router-view v-else-if="isLoginRoute"></router-view>
@@ -27,19 +40,18 @@
   </div>
 </template>
 
-
 <script>
-import SideBar from "./pages/common/SideBar.vue";
 import TopBar from "./pages/common/TopBar.vue";
 import FooterPage from "./pages/common/FooterPage.vue";
 import Cookies from "js-cookie";
+import SideBar from "./pages/common/SideBar.vue";
 
 export default {
   name: "App",
   components: {
     TopBar,
-    SideBar,
     FooterPage,
+    SideBar,
   },
   computed: {
     isAuthenticated() {
@@ -55,6 +67,9 @@ export default {
     isForgetRoute() {
       return this.$route.name === "Forget Password";
     },
+    isNotFound(){
+      return this.$route.name === "NotFound";
+    }
   },
   methods: {
     isTokenValid(token) {

@@ -1,85 +1,94 @@
 <template>
   <div>
-    <div class="login-account">
-      <div class="row h-100">
-        <div class="col-lg-6 align-self-start">
-          <div class="account-info-area">
-            <div
-              class="login-content"
-              style="
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-              "
-            >
-              <div class="image-container">
-                <img
-                  src="../common/images/moz.png"
-                  alt="moz"
-                  style="max-width: 70%"
-                />
-              </div>
-              <h1 class="titlementor">Mentor</h1>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-7 col-sm-12 mx-auto align-self-center">
-          <div class="login-form">
-            <div class="login-head">
-              <h3 class="title">Bem vindo</h3>
-              <p>
-                Insira credenciais de login para autenticação e acesso a
-                conteúdo seguro.
-              </p>
-            </div>
-            <h6 class="login-title"><span>Login</span></h6>
+    <!-- <div class="text-center mb-4">
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        :disabled="btnLoading"
+      >
+        <div v-if="btnLoading" class="spinner-border spinner-border-sm"></div>
+        <span v-if="btnLoading">Processando</span>
+        <span v-else>Entrar</span>
+      </button>
+    </div> -->
 
-            <form @submit.prevent="onLogin">
-              <div class="mb-4">
-                <label class="mb-1 text-black">Usuario</label>
-                <input type="texte" v-model="username" class="form-control" />
-              </div>
-              <div class="mb-4">
-                <label class="mb-1 text-black">Senha</label>
-                <input
-                  type="password"
-                  v-model="password"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                <div class="mb-4"></div>
-                <div class="mb-4">
-                  <a href="" class="btn-link text-primary"
-                    >Esqueceu sua senha?</a
-                  >
+    <!--  -->
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+          <div class="row flex-grow">
+            <div class="col-lg-4 mx-auto">
+              <div class="auth-form-light text-center p-5">
+                <div class="brand-logo">
+                  <img
+                    src="/assets/images/logo Max Size.png"
+                    style="width: 80px; height: auto"
+                    alt="Logo"
+                  />
                 </div>
-              </div>
-              <div class="text-center mb-4">
-                <button
-                  type="submit"
-                  class="btn btn-primary btn-block"
-                  :disabled="btnLoading"
-                >
+                <h4>Olá! vamos começar</h4>
+                <h6 class="font-weight-light">Faça login para continuar.</h6>
+                <form class="pt-3" @submit.prevent="onLogin">
+                  <div class="form-group">
+                    <input
+                      v-model="contact1"
+                      type="number"
+                      class="form-control form-control-lg"
+                      id="exampleInputEmail1"
+                      placeholder="Contacto"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <input
+                      v-model="password"
+                      type="password"
+                      class="form-control form-control-lg"
+                      id="exampleInputPassword1"
+                      placeholder="Senha"
+                    />
+                  </div>
+                  <div class="mt-3">
+                    <button
+                      class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
+                      :disabled="btnLoading"
+                      @click="signIn"
+                    >
+                      <span v-if="!btnLoading">SIGN IN</span>
+                      <span v-else>
+                        <span
+                          class="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        Signing in...
+                      </span>
+                    </button>
+                    <!-- <button
+                      class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
+                      :disabled="btnLoading"
+                    >
+                      SIGN IN
+                    </button> -->
+                  </div>
                   <div
-                    v-if="btnLoading"
-                    class="spinner-border spinner-border-sm"
-                  ></div>
-                  <span v-if="btnLoading">Processando</span>
-                  <span v-else>Entrar</span>
-                </button>
-
-                <!-- <button type="submit"  :disabled="btnLoading" class="btn btn-primary btn-block">
-                  Entrar
-                </button> -->
+                    class="my-2 d-flex justify-content-between align-items-center"
+                  >
+                    <router-link
+                      to="/forget-password"
+                      class="auth-link text-black"
+                      >Forgot password?</router-link
+                    >
+                  </div>
+                </form>
               </div>
-            </form>
+            </div>
           </div>
         </div>
+        <!-- content-wrapper ends -->
       </div>
+      <!-- page-body-wrapper ends -->
     </div>
+    <!--  -->
   </div>
 </template>
 
@@ -92,7 +101,7 @@ import "sweetalert2/dist/sweetalert2.css";
 export default {
   data() {
     return {
-      username: "",
+      contact1: "",
       password: "",
       btnLoading: false,
       loading: false,
@@ -109,13 +118,28 @@ export default {
   },
   methods: {
     async onLogin() {
-      // Check if both email and password fields are empty
-      if (!this.username || !this.password) {
+      this.btnLoading = true;
+      // Verificar se ambos os campos de contacto e senha estão vazios
+      if (!this.contact1 || !this.password) {
         Swal.fire({
           icon: "warning",
           title: "Aviso!",
           toast: true,
-          text: "Usuario e senha são obrigatórios.",
+          text: "Contacto e senha são obrigatórios.",
+          timer: 3000,
+          showConfirmButton: false,
+          position: "top-end",
+        });
+        return;
+      }
+
+      // Validar o campo de contacto
+      if (!/^258\d{9}$/.test(this.contact1)) {
+        Swal.fire({
+          icon: "warning",
+          title: "Aviso!",
+          toast: true,
+          text: "O contacto deve iniciar com 258 e ter 12 dígitos.",
           timer: 3000,
           showConfirmButton: false,
           position: "top-end",
@@ -124,41 +148,46 @@ export default {
       }
 
       try {
-        this.loading = true;
-        this.btnLoading = true;
+        // this.loading = true;
+        this.btnLoading = false;
 
         const user = {
-          username: this.username,
+          contact1: this.contact1,
           password: this.password,
         };
 
-        const res = await this.axios.post("/api/signin", user);
+        // Certifique-se de que axios está configurado corretamente
+        const res = await axios.post("/api/signin", user);
 
         if (res.status === 200) {
           Cookies.set("token", res.data.token, { expires: 7 });
           Cookies.set("role", res.data.role, { expires: 7 });
+          this.isLoggedIn = true; // Atualizar o estado de login
+
           this.$emit("loginSuccess");
-          this.$router.go("/");
+          // this.$router.push("/");
+          location.reload();
         }
       } catch (error) {
+        console.error("Erro na requisição:", error); // Log para depuração
+
         if (
           error.response &&
           error.response.data &&
           error.response.data.error
         ) {
           this.errors = { username: [error.response.data.error] };
-          console.log(this.errors);
           Swal.fire({
             icon: "warning",
             title: "Aviso!",
             toast: true,
-            text: `${this.errors.username}`,
+            text: this.errors.username,
             timer: 3000,
             showConfirmButton: false,
             position: "top-end",
           });
         } else {
-          // Show a generic error message for unexpected errors
+          // Exibir uma mensagem de erro genérica para erros inesperados
           Swal.fire({
             icon: "error",
             title: "Erro!",
@@ -170,6 +199,68 @@ export default {
         this.btnLoading = false;
       }
     },
+    // async onLogin() {
+    //   // Check if both email and password fields are empty
+    //   if (!this.username || !this.password) {
+    //     Swal.fire({
+    //       icon: "warning",
+    //       title: "Aviso!",
+    //       toast: true,
+    //       text: "Usuario e senha são obrigatórios.",
+    //       timer: 3000,
+    //       showConfirmButton: false,
+    //       position: "top-end",
+    //     });
+    //     return;
+    //   }
+
+    //   try {
+    //     this.loading = true;
+    //     this.btnLoading = true;
+
+    //     const user = {
+    //       username: this.username,
+    //       password: this.password,
+    //     };
+
+    //     const res = await this.axios.post("/api/signin", user);
+
+    //     if (res.status === 200) {
+    //       Cookies.set("token", res.data.token, { expires: 7 });
+    //       Cookies.set("role", res.data.role, { expires: 7 });
+    //       this.$emit("loginSuccess");
+    //       this.$router.go("/");
+    //     }
+    //   } catch (error) {
+    //     if (
+    //       error.response &&
+    //       error.response.data &&
+    //       error.response.data.error
+    //     ) {
+    //       this.errors = { username: [error.response.data.error] };
+    //       console.log(this.errors);
+    //       Swal.fire({
+    //         icon: "warning",
+    //         title: "Aviso!",
+    //         toast: true,
+    //         text: `${this.errors.username}`,
+    //         timer: 3000,
+    //         showConfirmButton: false,
+    //         position: "top-end",
+    //       });
+    //     } else {
+    //       // Show a generic error message for unexpected errors
+    //       Swal.fire({
+    //         icon: "error",
+    //         title: "Erro!",
+    //         text: "Um erro ocorreu. Por favor, tente novamente mais tarde.",
+    //       });
+    //     }
+    //   } finally {
+    //     this.loading = false;
+    //     this.btnLoading = false;
+    //   }
+    // },
   },
 
   beforeRouteEnter(to, from, next) {

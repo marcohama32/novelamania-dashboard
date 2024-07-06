@@ -1,339 +1,461 @@
 <template>
   <div>
-    <div class="form-head mb-4">
-      <h2 class="text-black font-w600 mb-0">Painel de Controle</h2>
+    <div class="page-header">
+      <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white mr-2">
+          <i class="mdi mdi-home"></i>
+        </span>
+        Dashboard
+      </h3>
+      <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">
+            <span></span>Overview
+            <i
+              class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"
+            ></i>
+          </li>
+        </ul>
+      </nav>
     </div>
     <div class="row">
-      <div class="col-xl-6">
-        <div class="row">
-          <div class="col-xl-8 col-lg-6 col-md-7 col-sm-8">
-            <div class="card-bx stacked">
-              <img src="/dist/images/card/card.png" alt="" class="mw-100" />
-              <div class="card-info text-white">
-                <p class="mb-1">Valor Total</p>
-                <h2 class="fs-36 text-white mb-sm-4 mb-3">
-                  {{ formatCurrency(totalAmountCharges) }}
-                </h2>
-                <div
-                  class="d-flex align-items-center justify-content-between mb-sm-5 mb-3"
-                >
-                  <img src="images/dual-dot.png" alt="" class="dot-img" />
-                  <!-- <h4 class="fs-20 text-white mb-0">**** **** **** 1234</h4> -->
-                </div>
-                <!-- <div class="d-flex">
-                  <div class="me-5">
-                    <p class="fs-14 mb-1 op6">VALID THRU</p>
-                    <span>08/21</span>
-                  </div>
-                  <div>
-                    <p class="fs-14 mb-1 op6">CARD HOLDER</p>
-                    <span>Franklin Jr.</span>
-                  </div>
-                </div> -->
-              </div>
-              <!-- <a href="javascript:;"
-                ><i class="fa fa-caret-down" aria-hidden="true"></i
-              ></a> -->
-            </div>
+      <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-danger card-img-holder text-white">
+          <div class="card-body">
+            <img
+              src="assets/images/dashboard/circle.svg"
+              class="card-img-absolute"
+              alt="circle-image"
+            />
+            <h4 class="font-weight-normal mb-3">
+              Weekly Sales
+              <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+            </h4>
+            <h2 class="mb-5">$ 15,0000</h2>
+            <h6 class="card-text">Increased by 60%</h6>
           </div>
-          <div class="col-xl-4 col-lg-6 col-md-5 col-sm-4">
+        </div>
+      </div>
+      <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-info card-img-holder text-white">
+          <div class="card-body">
+            <img
+              src="assets/images/dashboard/circle.svg"
+              class="card-img-absolute"
+              alt="circle-image"
+            />
+            <h4 class="font-weight-normal mb-3">
+              Weekly Orders
+              <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+            </h4>
+            <h2 class="mb-5">45,6334</h2>
+            <h6 class="card-text">Decreased by 10%</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 stretch-card grid-margin">
+        <div class="card bg-gradient-success card-img-holder text-white">
+          <div class="card-body">
+            <img
+              src="assets/images/dashboard/circle.svg"
+              class="card-img-absolute"
+              alt="circle-image"
+            />
+            <h4 class="font-weight-normal mb-3">
+              Visitors Online
+              <i class="mdi mdi-diamond mdi-24px float-right"></i>
+            </h4>
+            <h2 class="mb-5">95,5741</h2>
+            <h6 class="card-text">Increased by 5%</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="clearfix">
+              <h4 class="card-title float-left">Visit And Sales Statistics</h4>
+              <div
+                id="visit-sale-chart-legend"
+                class="rounded-legend legend-horizontal legend-top-right float-right"
+              ></div>
+            </div>
+            <canvas id="visit-sale-chart" class="mt-4"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Traffic Sources</h4>
+            <canvas id="traffic-chart"></canvas>
             <div
-              class="card bgl-primary card-body overflow-hidden p-0 d-flex rounded"
-            >
-              <div class="p-0 text-center mt-3">
-                <span class="text-black">Despesas</span>
-                <h3 class="text-black fs-20 mb-0 font-w600">
-                  {{ formatCurrency(totalAmountExpenses) }}
-                </h3>
-                <div class="mt-3"><small>mes corrente</small></div>
-                <h3 class="text-black fs-20 mb-0 font-w600">
-                  {{ formatCurrency(totalCurrentMonthAmountExpenses) }}
-                </h3>
-              </div>
-              <canvas
-                id="lineChart"
-                height="300"
-                class="mt-auto line-chart-demo"
-              ></canvas>
+              id="traffic-chart-legend"
+              class="rounded-legend legend-vertical legend-bottom-left pt-4"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Recent Tickets</h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Assignee</th>
+                    <th>Subject</th>
+                    <th>Status</th>
+                    <th>Last Update</th>
+                    <th>Tracking ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <img
+                        src="assets/images/faces/face1.jpg"
+                        class="mr-2"
+                        alt="image"
+                      />
+                      David Grey
+                    </td>
+                    <td>Fund is not recieved</td>
+                    <td>
+                      <label class="badge badge-gradient-success">DONE</label>
+                    </td>
+                    <td>Dec 5, 2017</td>
+                    <td>WD-12345</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img
+                        src="assets/images/faces/face2.jpg"
+                        class="mr-2"
+                        alt="image"
+                      />
+                      Stella Johnson
+                    </td>
+                    <td>High loading time</td>
+                    <td>
+                      <label class="badge badge-gradient-warning"
+                        >PROGRESS</label
+                      >
+                    </td>
+                    <td>Dec 12, 2017</td>
+                    <td>WD-12346</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img
+                        src="assets/images/faces/face3.jpg"
+                        class="mr-2"
+                        alt="image"
+                      />
+                      Marina Michel
+                    </td>
+                    <td>Website down for one week</td>
+                    <td>
+                      <label class="badge badge-gradient-info">ON HOLD</label>
+                    </td>
+                    <td>Dec 16, 2017</td>
+                    <td>WD-12347</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img
+                        src="assets/images/faces/face4.jpg"
+                        class="mr-2"
+                        alt="image"
+                      />
+                      John Doe
+                    </td>
+                    <td>Loosing control on server</td>
+                    <td>
+                      <label class="badge badge-gradient-danger"
+                        >REJECTED</label
+                      >
+                    </td>
+                    <td>Dec 3, 2017</td>
+                    <td>WD-12348</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-
-          <div class="col-xl-12">
-            <div class="card">
-              <div class="card-header d-block d-sm-flex border-0">
-                <div class="me-3">
-                  <h4 class="fs-20 text-black">Cobranças recentes</h4>
-                  <!-- <p class="mb-0 fs-13">
-                    Lorem ipsum dolor sit amet, consectetur
-                  </p> -->
-                </div>
-                <div class="card-action card-tabs d-inline-block mt-3 mt-sm-0">
-                  <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
-                      <router-link to="/listarcobrancas"
-                        class="nav-link active"
-                      
-                        role="tab"
-                        >Ver todas</router-link
-                      >
-                    </li>
-                  </ul>
-                </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Recent Updates</h4>
+            <div class="d-flex">
+              <div
+                class="d-flex align-items-center mr-4 text-muted font-weight-light"
+              >
+                <i class="mdi mdi-account-outline icon-sm mr-2"></i>
+                <span>jack Menqu</span>
               </div>
-              <div class="card-body tab-content p-0">
-                <div
-                  class="tab-pane active show fade"
-                  id="monthly"
-                  role="tabpanel"
-                >
-                  <div class="table-responsive">
-                    <table
-                      class="table table-responsive-md card-table previous-transactions"
-                    >
-                      <tbody>
-
-<tr v-for="recentCharge in recentCharges" :key="recentCharge._id">
-  <td>
-    <h6 class="fs-16 font-w600 mb-0">
-      <a :href="`transactions-details.html?id=${recentCharge._id}`" class="text-black">
-        {{ recentCharge.service.title }}
-      </a>
-    </h6>
-    <span class="fs-14">
-      {{ recentCharge.paymentMethod }} -
-      {{ recentCharge.customer ? (recentCharge.customer.firstName || 'N/A') + ' ' + (recentCharge.customer.lastName || 'N/A') : 'N/A' }}
-    </span>
-  </td>
-  <td>
-    <span class="fs-16 text-black text-end font-w500 d-block">
-      {{ formatCurrency(recentCharge.amount) }}
-    </span>
-  </td>
-  <td>
-    <h6 class="fs-16 text-black text-end d-block font-w400 mb-0">
-      {{ formatDateWithTime(recentCharge.createdAt) }}
-    </h6>
-  </td>
-</tr>
-
-
-
-                      </tbody>
-
-                      <tbody></tbody>
-                    </table>
-                  </div>
-                </div>
+              <div
+                class="d-flex align-items-center text-muted font-weight-light"
+              >
+                <i class="mdi mdi-clock icon-sm mr-2"></i>
+                <span>October 3rd, 2018</span>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-6 pr-1">
+                <img
+                  src="assets/images/dashboard/img_1.jpg"
+                  class="mb-2 mw-100 w-100 rounded"
+                  alt="image"
+                />
+                <img
+                  src="assets/images/dashboard/img_4.jpg"
+                  class="mw-100 w-100 rounded"
+                  alt="image"
+                />
+              </div>
+              <div class="col-6 pl-1">
+                <img
+                  src="assets/images/dashboard/img_2.jpg"
+                  class="mb-2 mw-100 w-100 rounded"
+                  alt="image"
+                />
+                <img
+                  src="assets/images/dashboard/img_3.jpg"
+                  class="mw-100 w-100 rounded"
+                  alt="image"
+                />
+              </div>
+            </div>
+            <div class="d-flex mt-5 align-items-top">
+              <img
+                src="assets/images/faces/face3.jpg"
+                class="img-sm rounded-circle mr-3"
+                alt="image"
+              />
+              <div class="mb-0 flex-grow">
+                <h5 class="mr-2 mb-2">
+                  School Website - Authentication Module.
+                </h5>
+                <p class="mb-0 font-weight-light">
+                  It is a long established fact that a reader will be distracted
+                  by the readable content of a page.
+                </p>
+              </div>
+              <div class="ml-auto">
+                <i class="mdi mdi-heart-outline text-muted"></i>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-xl-6">
-        <div class="row">
-          <div class="col-xl-6 col-sm-6">
-            <div class="card">
-              <div class="card-header flex-wrap border-0 pb-0">
-                <div class="me-3 mb-2">
-                  <p class="fs-14 mb-1">Cobranças mes corrente</p>
-                  <span class="fs-24 text-black font-w600">{{
-                    formatCurrency(totalAmountChargesCurrentMonth)
-                  }}</span>
-                </div>
-                <!-- <span class="fs-12 mb-2">
-                  <svg
-                    width="21"
-                    height="15"
-                    viewBox="0 0 21 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0.999939 13.5C1.91791 12.4157 4.89722 9.22772 6.49994 7.5L12.4999 10.5L19.4999 1.5"
-                      stroke="#2BC155"
-                      stroke-width="2"
-                    />
-                    <path
-                      d="M6.49994 7.5C4.89722 9.22772 1.91791 12.4157 0.999939 13.5H19.4999V1.5L12.4999 10.5L6.49994 7.5Z"
-                      fill="url(#paint0_linear)"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="paint0_linear"
-                        x1="10.2499"
-                        y1="3"
-                        x2="10.9999"
-                        y2="13.5"
-                        gradientUnits="userSpaceOnUse"
-                      >
-                        <stop
-                          offset="0"
-                          stop-color="#2BC155"
-                          stop-opacity="0.73"
-                        />
-                        <stop
-                          offset="1"
-                          stop-color="#2BC155"
-                          stop-opacity="0"
-                        />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  4% (30 dias)</span 
-                >-->
-              </div>
-              <div class="card-body p-0">
-                <canvas id="widgetChart1" height="80"></canvas>
-              </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Project Status</h4>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Due Date</th>
+                    <th>Progress</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Herman Beck</td>
+                    <td>May 15, 2015</td>
+                    <td>
+                      <div class="progress">
+                        <div
+                          class="progress-bar bg-gradient-success"
+                          role="progressbar"
+                          style="width: 25%"
+                          aria-valuenow="25"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Messsy Adam</td>
+                    <td>Jul 01, 2015</td>
+                    <td>
+                      <div class="progress">
+                        <div
+                          class="progress-bar bg-gradient-danger"
+                          role="progressbar"
+                          style="width: 75%"
+                          aria-valuenow="75"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>John Richards</td>
+                    <td>Apr 12, 2015</td>
+                    <td>
+                      <div class="progress">
+                        <div
+                          class="progress-bar bg-gradient-warning"
+                          role="progressbar"
+                          style="width: 90%"
+                          aria-valuenow="90"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Peter Meggik</td>
+                    <td>May 15, 2015</td>
+                    <td>
+                      <div class="progress">
+                        <div
+                          class="progress-bar bg-gradient-primary"
+                          role="progressbar"
+                          style="width: 50%"
+                          aria-valuenow="50"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Edward</td>
+                    <td>May 03, 2015</td>
+                    <td>
+                      <div class="progress">
+                        <div
+                          class="progress-bar bg-gradient-danger"
+                          role="progressbar"
+                          style="width: 35%"
+                          aria-valuenow="35"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Ronald</td>
+                    <td>Jun 05, 2015</td>
+                    <td>
+                      <div class="progress">
+                        <div
+                          class="progress-bar bg-gradient-info"
+                          role="progressbar"
+                          style="width: 65%"
+                          aria-valuenow="65"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                        ></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          <div class="col-xl-6 col-sm-6">
-            <div class="card">
-              <div class="card-header flex-wrap border-0 pb-0">
-                <div class="me-3 mb-2">
-                  <p class="fs-14 mb-1">Previsao mes corrente</p>
-                  <span class="fs-24 text-black font-w600">{{
-                    formatCurrency(forecastAmountCurrentMonth)
-                  }}</span>
-                </div>
-                <!-- <span class="fs-12 mb-2">
-                  <svg
-                    width="21"
-                    height="15"
-                    viewBox="0 0 21 15"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14.3514 7.5C15.9974 9.37169 19.0572 12.8253 20 14H1V1L8.18919 10.75L14.3514 7.5Z"
-                      fill="url(#paint0_linear1)"
-                    />
-                    <path
-                      d="M19.5 13.5C18.582 12.4157 15.6027 9.22772 14 7.5L8 10.5L1 1.5"
-                      stroke="#FF2E2E"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="paint0_linear1"
-                        x1="10.5"
-                        y1="2.625"
-                        x2="9.64345"
-                        y2="13.9935"
-                        gradientUnits="userSpaceOnUse"
-                      >
-                        <stop offset="0" stop-color="#FF2E2E" />
-                        <stop
-                          offset="1"
-                          stop-color="#FF2E2E"
-                          stop-opacity="0.03"
-                        />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  4% (30 dias)</span
-                > -->
-              </div>
-              <div class="card-body p-0">
-                <canvas id="widgetChart2" height="80"></canvas>
-              </div>
+        </div>
+      </div>
+      <div class="col-md-5 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-white">Todo</h4>
+            <div class="add-items d-flex">
+              <input
+                type="text"
+                class="form-control todo-list-input"
+                placeholder="What do you need to do today?"
+              />
+              <button
+                class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn"
+                id="add-task"
+              >
+                Add
+              </button>
             </div>
-          </div>
-          <div class="col-xl-12">
-            <div class="card overflow-hidden">
-              <div class="card-header d-sm-flex d-block border-0 pb-0">
-                <div class="mb-sm-0 mb-2">
-                  <p class="fs-14 mb-3">Analise semanal</p>
-                  <div class="row">
-                    <div
-                      v-for="weeklyAnalysisCharge in weeklyAnalysisCharges"
-                      :key="weeklyAnalysisCharge"
-                      class="mb-1 col-12"
-                    >
-                      <strong class="fs-20 text-black ms-2 me-3">{{
-                        formatCurrency(weeklyAnalysisCharge.totalAmount)
-                      }}</strong>
-                      {{ weeklyAnalysisCharge.weekStartDate }} a
-                      {{ weeklyAnalysisCharge.weekEndDate }}
-                    </div>
+            <div class="list-wrapper">
+              <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                <li>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" /> Meeting with
+                      Alisa
+                    </label>
                   </div>
-                </div>
-              </div>
-              <div class="card-body p-0">
-                <canvas id="widgetChart3" height="20"></canvas>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-xl-12">
-            <div class="card">
-              <div class="card-body pb-1">
-                <div class="row align-items-center">
-                  <div class="col-xl-12 col-xxl-12 col-md-12">
-                    <div
-                      class="mycard-header card-header d-block d-sm-flex border-0"
-                    >
-                      <div class="me-3">
-                        <h4 class="fs-20 text-black">Ultimas despesas</h4>
-                      </div>
-                      <div
-                        class="card-action card-tabs d-inline-block mt-3 mt-sm-0"
-                      >
-                        <ul class="nav nav-tabs" role="tablist">
-                          <li class="nav-item">
-                            <router-link
-                              to="/listardespesas"
-                              class="nav-link active"
-                              >Ver todas</router-link
-                            >
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div
-                        class="d-flex col-xl-12 col-xxl-6 col-md-12 col-sm-6 mb-4"
-                        v-for="recentExpense in recentExpenses"
-                        :key="recentExpense"
-                      >
-                        <svg
-                          class="me-3"
-                          width="14"
-                          height="54"
-                          viewBox="0 0 14 54"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            x="-6.10352e-05"
-                            width="14"
-                            height="54"
-                            rx="7"
-                            fill="#40D4A8"
-                          />
-                        </svg>
-                        <div>
-                          <p class="fs-14 mb-2">{{ recentExpense.title }}</p>
-                          <span class="fs-18 font-w500"
-                            ><span class="text-black me-2">{{
-                              formatCurrency(recentExpense.amount)
-                            }}</span
-                            >/ {{ recentExpense.paymentMethod }}
-
-                            <span class="me-1"
-                              >/
-                              {{
-                                formatTimestamp(recentExpense.createdAt)
-                              }}</span
-                            >
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                  <i class="remove mdi mdi-close-circle-outline"></i>
+                </li>
+                <li class="completed">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" checked /> Call
+                      John
+                    </label>
                   </div>
-                </div>
-              </div>
+                  <i class="remove mdi mdi-close-circle-outline"></i>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" /> Create invoice
+                    </label>
+                  </div>
+                  <i class="remove mdi mdi-close-circle-outline"></i>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" /> Print
+                      Statements
+                    </label>
+                  </div>
+                  <i class="remove mdi mdi-close-circle-outline"></i>
+                </li>
+                <li class="completed">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" checked /> Prepare
+                      for presentation
+                    </label>
+                  </div>
+                  <i class="remove mdi mdi-close-circle-outline"></i>
+                </li>
+                <li>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input class="checkbox" type="checkbox" /> Pick up kids
+                      from school
+                    </label>
+                  </div>
+                  <i class="remove mdi mdi-close-circle-outline"></i>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -342,158 +464,27 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-import Cookies from "js-cookie";
+import $ from "jquery";
 
 export default {
   data() {
     return {
-      response: null,
-      userID: "",
-      firstName: "",
-      totalAmountCharges: "",
-      totalAmountChargesCurrentMonth: "",
-      totalAmountChargesPreviousMonth: "",
-      forecastAmountCurrentMonth: "",
-      totalAmountExpenses: "",
-      recentCharges: [],
-      totalCurrentMonthAmountExpenses: "",
-      recentExpenses: [],
-      weeklyAnalysisCharges: [],
-
-      chartInstance: null, // Add a chart instance property
-      chartInstance2: null, // Add a chart instance property
-      canvasExists: false,
+      shapeBg: "img/bg/ucm_bg_shape.png",
     };
   },
   created() {
-    this.getDashboardData();
-
-    setInterval(() => {
-      this.getDashboardData();
-    }, 2 * 60 * 1000); // 5 minutes in milliseconds
+    // Se houver alguma inicialização necessária
   },
-  methods: {
-    formatDateWithTime(dateString) {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      const hours = String(date.getHours()).padStart(2, "0");
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      return `${year}-${month}-${day} ${hours}:${minutes}`;
-    },
-    formatCurrency(value) {
-      const formatter = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      });
-
-      return formatter.format(value);
-    },
-    getStatusClass(status) {
-      if (status === "Done") {
-        return "text-success";
-      } else if (status === "Pending") {
-        return "text-pending";
-      } else if (status === "canceled") {
-        return "text-danger";
-      } else if (status === "Under_approval") {
-        return "text-warning";
-      } else if (status === "Under_assessment") {
-        return "text-muted";
-      } else if (status === "Received") {
-        return "text-primary";
-      }
-      {
-        return ""; // Default class if no match
-      }
-    },
-    formatTimestamp(timestamp) {
-      const currentTime = new Date();
-      const messageTime = new Date(timestamp);
-
-      const timeDifference = currentTime - messageTime;
-      const seconds = Math.floor(timeDifference / 1000);
-
-      if (seconds < 60) {
-        return `${seconds} segundos atrás`;
-      }
-
-      const minutes = Math.floor(seconds / 60);
-
-      if (minutes < 60) {
-        return `${minutes} minutos atrás`;
-      }
-
-      const hours = Math.floor(minutes / 60);
-
-      if (hours < 24) {
-        return `${hours} horas atrás`;
-      }
-
-      const days = Math.floor(hours / 24);
-
-      return `${days} dias atrás`;
-    },
-    async getDashboardData() {
-      const token = Cookies.get("token");
-      await axios
-        .get("/api/admindashboard", {
-          headers: {
-            token: token,
-          },
-        })
-        .then((response) => {
-          const dashboardData = response.data;
-
-          this.totalAmountCharges = dashboardData.totalAmountCharges;
-          this.totalAmountChargesCurrentMonth =
-            dashboardData.totalAmountChargesCurrentMonth;
-          this.totalAmountChargesPreviousMonth =
-            dashboardData.totalAmountChargesPreviousMonth;
-          this.forecastAmountCurrentMonth =
-            dashboardData.forecastAmountCurrentMonth;
-          this.totalAmountExpenses = dashboardData.totalAmountExpenses;
-          this.recentCharges = dashboardData.recentCharges;
-          this.totalCurrentMonthAmountExpenses =
-            dashboardData.totalCurrentMonthAmountExpenses;
-          this.recentExpenses = dashboardData.recentExpenses;
-          this.weeklyAnalysisCharges = dashboardData.weeklyAnalysisCharges;
-        })
-        .catch((error) => {
-          this.errorMessage =
-            "Erro ao carregar a pagina inicial. Por favor, tente novamente.";
-          console.error("Error retrieving profile:", error);
-        });
-    },
-  },
-
   mounted() {
-    // this.fetchChatMessages()
-    this.$nextTick(() => {
-      this.getDashboardData(); // Move your chart initialization code here
+    // Função para filtrar os filmes com base na categoria selecionada
+    $(".tr-movie-menu-active button").click(function () {
+      var filterValue = $(this).attr("data-filter");
+      $(".tr-movie-active").find(".grid-item").hide(); // Esconde todos os filmes
+      $(".tr-movie-active").find(filterValue).show(); // Mostra os filmes da categoria selecionada
+      // Adiciona a classe 'active' ao botão clicado e remove dos outros
+      $(".tr-movie-menu-active button").removeClass("active");
+      $(this).addClass("active");
     });
-    // this.getDashboardData();
   },
 };
 </script>
-<style>
-.mycard-header {
-  margin-top: 0 !important; /* Use !important to ensure this style takes precedence */
-}
-.spinner {
-  width: 2em;
-  height: 2em;
-  border-top: 1em solid #99a0ac;
-  border-right: 1em solid transparent;
-  border-radius: 100%;
-  margin: auto;
-  animation: spinner 0.9s linear infinite;
-}
-@keyframes spinner {
-  100% {
-    transform: rotate(360deg);
-  }
-}
-</style>
