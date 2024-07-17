@@ -4,20 +4,16 @@
       <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Adicionar Novela ou Dorama</h4>
-            <form
-              class="forms-sample mt-4"
-              @submit.prevent="onCreateContent"
-              enctype="multipart/form-data"
-            >
+            <h4 class="card-title">Adicionar temporada</h4>
+            <form class="forms-sample mt-4" @submit.prevent="onCreateContent">
               <div class="form-group">
-                <label for="title">Título</label>
+                <label for="title">Numero de temporada</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control"
-                  id="title"
-                  placeholder="Título"
-                  v-model="title"
+                  id="numer"
+                  placeholder="Numero"
+                  v-model="season_number"
                 />
               </div>
               <div class="row mb-3">
@@ -32,23 +28,17 @@
                   />
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="genres">Gênero</label>
+                  <label for="genres">Titulo</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="genres"
-                    placeholder="Gênero"
-                    v-model="genres"
+                    id="titulo"
+                    placeholder="Titulo"
+                    v-model="title"
                   />
                 </div>
               </div>
-              <div class="form-group">
-                <label for="type">Tipo</label>
-                <select v-model="type" class="form-control" id="type">
-                  <option value="novela">Novela</option>
-                  <option value="dorama">Dorama</option>
-                </select>
-              </div>
+
               <div class="form-group">
                 <label for="description">Descrição</label>
                 <textarea
@@ -58,43 +48,30 @@
                   v-model="description"
                 ></textarea>
               </div>
-              <div class="form-group">
-                <label>Upload de Arquivo</label>
-                <input
-                  class="form-control file-upload-info"
-                  type="file"
-                  id="fileInput"
-                  ref="fileInput"
-                  accept=".jpg, .jpeg, .png, .pdf"
-                  @change="onFileChange"
-                  placeholder="Upload Image"
-                />
-              </div>
-              
-                <button
-                  type="submit"
-                  class="btn btn-gradient-primary mr-2"
-                  v-if="!btnloading"
-                >
-                  Salvar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-gradient-primary mr-2"
-                  disabled
-                  v-if="btnloading"
-                >
-                  <span
-                    class="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                  Salvando...
-                </button>
-             
-             
-              <button class="btn btn-light" @click="back">Cancelar</button>
+
+              <button
+                type="submit"
+                class="btn btn-gradient-primary mr-2"
+                v-if="!btnloading"
+              >
+                Salvar
+              </button>
+              <button
+                type="button"
+                class="btn btn-gradient-primary mr-2"
+                disabled
+                v-if="btnloading"
+              >
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                Salvando...
+              </button>
+              <button type="button" class="btn btn-light"  @click="back">Cancelar</button>
             </form>
+           
           </div>
         </div>
       </div>
@@ -113,9 +90,10 @@ export default {
     return {
       title: "",
       release_year: "",
-      genres: "",
-      image_url: null,
-      type: "",
+
+      season_number: "",
+      novel: "",
+
       description: "",
       btnloading: false,
       loading: false,
@@ -142,14 +120,7 @@ export default {
         },
       });
 
-      const requiredFields = [
-        "title",
-        "release_year",
-        "genres",
-        "image_url",
-        "type",
-        "description",
-      ];
+      const requiredFields = ["season_number"];
       const token = Cookies.get("token");
       for (const field of requiredFields) {
         if (this[field] === "") {
@@ -167,18 +138,19 @@ export default {
       }
 
       try {
+        const novel = this.$route.params.id;
         const formData = new FormData();
+        formData.append("novel", novel);
+        formData.append("season_number", this.season_number);
         formData.append("title", this.title);
-        formData.append("release_year", this.release_year);
-        formData.append("genres", this.genres);
-        formData.append("image_url", this.image_url);
-        formData.append("type", this.type);
         formData.append("description", this.description);
+        formData.append("release_year", this.release_year);
 
         this.btnloading = true;
-        const response = await axios.post("api/novel/create", formData, {
+        const response = await axios.post("api/season/create", formData, {
           headers: {
             token: token,
+            "Content-Type": "application/json",
           },
         });
         console.log(response);
@@ -186,7 +158,7 @@ export default {
         Toast.fire({
           icon: "success",
           title: "Sucesso!",
-          text: "Conteúdo criado com sucesso",
+          text: "Temporada criada com sucesso",
           timer: 3000,
         });
 

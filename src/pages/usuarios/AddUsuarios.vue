@@ -159,6 +159,7 @@
       };
     },
     methods: {
+     
       onFileChange(event) {
         const file = event.target.files[0]; // Get the selected file
         this.image_url = file; // Set the file object to the image_url property

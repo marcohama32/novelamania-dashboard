@@ -13,8 +13,14 @@ import store from "./store/store";
 // Import the Flatpickr CSS
 
 // Set default base URL for Axios requests
+
 axios.defaults.baseURL = "https://novelamania-api.onrender.com";
 // axios.defaults.baseURL = "http://localhost:8000";
+
+// axios.defaults.baseURL = "https://cobrancasbackend.onrender.com/";
+// axios.defaults.baseURL = "http://localhost:8000";
+// axios.defaults.baseURL = "https://novelamania-api.onrender.com";
+
 
 // Adicionando o interceptor para tratamento de erros de autorização (401)
 let isHandlingUnauthorized = false;

@@ -30,7 +30,7 @@
                 data-toggle="modal"
                 data-target="#exampleModalCenter11"
               >
-                <i class="mdi mdi-note-plus menu-icon"></i>
+                <i class="mdi mdi-plus menu-icon"></i>
               </button>
             </div>
           </div>

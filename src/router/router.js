@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Cookies from "js-cookie";
-import axios from "axios";
+// import axios from "axios";
 import Login from "@/pages/common/LogIn.vue";
 import Home from "@/pages/common/HomePage.vue";
 
@@ -12,6 +12,11 @@ import NotFound from "@/pages/common/NotFound.vue";
 import AddContent from "@/pages/content/AddContent.vue";
 import ViewContent from "@/pages/content/ViewContent.vue";
 import EditContent from "@/pages/content/EditContent.vue";
+
+// season
+import AddSeason from "@/pages/content/Seasons/AddSeason.vue";
+import ViewSeason from "@/pages/content/Seasons/ViewSeason.vue";
+import EditSeason from "@/pages/content/Seasons/EditSeason.vue";
 
 // livros
 import AddLivros from "@/pages/livros/AddLivros.vue";
@@ -68,6 +73,26 @@ const routes = [
     meta: { requiresAuth: true, roles: ["1"] },
   },
 
+  // Season
+  {
+    path: "/addseason/:id",
+    component: AddSeason,
+    name: "Add Season",
+    meta: { requiresAuth: true, roles: ["1"] },
+  },
+
+  {
+    path: "/viewseason/:id",
+    component: ViewSeason,
+    name: "View Season",
+    meta: { requiresAuth: true, roles: ["1"] },
+  },
+  {
+    path: "/editseason/:id",
+    component: EditSeason,
+    name: "Edit Season",
+    meta: { requiresAuth: true, roles: ["1"] },
+  },
   // Episodes
   {
     path: "/viewepisodes/:id",
@@ -209,15 +234,14 @@ router.beforeEach(async (to, from, next) => {
   }
 
   // Verificar a validade do token se autenticado
-  let tokenValid = false;
-  if (isAuthenticated) {
-    tokenValid = await isTokenValid(isAuthenticated);
-  }
+  // let tokenValid = false;
+  // if (isAuthenticated) {
+  //   tokenValid = await isTokenValid(isAuthenticated);
+  // }
 
   // Redirecionar para a página de login se a rota requer autenticação e o token não for válido
   if (
-    (to.meta.requiresAuth && !isAuthenticated) ||
-    (!tokenValid && to.name !== "Login")
+    (to.meta.requiresAuth && !isAuthenticated)
   ) {
     clearUserData();
     return next({ path: "/login" });
@@ -261,17 +285,17 @@ function clearUserData() {
 }
 
 // Verificar se o token é válido
-async function isTokenValid(token) {
-  try {
-    const response = await axios.get("/api/check/verify-token/", {
-      headers: {
-        token: token,
-      },
-    });
-    return response.status === 200; // Retornar true se o token for válido
-  } catch (error) {
-    return false; // Retornar false se o token for inválido ou a solicitação falhar
-  }
-}
+// async function isTokenValid(token) {
+//   try {
+//     const response = await axios.get("/api/check/verify-token/", {
+//       headers: {
+//         token: token,
+//       },
+//     });
+//     return response.status === 200; // Retornar true se o token for válido
+//   } catch (error) {
+//     return false; // Retornar false se o token for inválido ou a solicitação falhar
+//   }
+// }
 
 export default router;

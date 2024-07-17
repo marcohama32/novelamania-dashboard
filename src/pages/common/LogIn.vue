@@ -1,28 +1,15 @@
 <template>
   <div>
-    <!-- <div class="text-center mb-4">
-      <button
-        type="submit"
-        class="btn btn-primary btn-block"
-        :disabled="btnLoading"
-      >
-        <div v-if="btnLoading" class="spinner-border spinner-border-sm"></div>
-        <span v-if="btnLoading">Processando</span>
-        <span v-else>Entrar</span>
-      </button>
-    </div> -->
-
-    <!--  -->
     <div class="container-scroller">
       <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-center auth">
           <div class="row flex-grow">
-            <div class="col-lg-4 mx-auto">
+            <div class="col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
               <div class="auth-form-light text-center p-5">
                 <div class="brand-logo">
                   <img
                     src="/assets/images/logo Max Size.png"
-                    style="width: 80px; height: auto"
+                    class="img-fluid"
                     alt="Logo"
                   />
                 </div>
@@ -49,8 +36,7 @@
                   </div>
                   <div class="mt-3">
                     <button
-                      class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-                      :disabled="btnLoading"
+                      class="btn btn-block btn-gradient-primary btn-sm font-weight-medium auth-form-btn"
                       @click="signIn"
                     >
                       <span v-if="!btnLoading">SIGN IN</span>
@@ -63,12 +49,6 @@
                         Signing in...
                       </span>
                     </button>
-                    <!-- <button
-                      class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn"
-                      :disabled="btnLoading"
-                    >
-                      SIGN IN
-                    </button> -->
                   </div>
                   <div
                     class="my-2 d-flex justify-content-between align-items-center"
@@ -88,6 +68,7 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+
     <!--  -->
   </div>
 </template>
@@ -119,6 +100,7 @@ export default {
   methods: {
     async onLogin() {
       this.btnLoading = true;
+
       // Verificar se ambos os campos de contacto e senha estão vazios
       if (!this.contact1 || !this.password) {
         Swal.fire({
@@ -149,7 +131,7 @@ export default {
 
       try {
         // this.loading = true;
-        this.btnLoading = false;
+        // this.btnLoading = false;
 
         const user = {
           contact1: this.contact1,
@@ -275,6 +257,14 @@ export default {
 </script>
 
 <style>
+@media (max-width: 576px) {
+  .auth-form-light {
+    padding: 2rem;
+  }
+  .btn-gradient-primary {
+    font-size: 1rem;
+  }
+}
 .titlementor {
   color: #148abe;
   margin-top: 40px;

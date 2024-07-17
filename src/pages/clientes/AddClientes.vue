@@ -99,7 +99,7 @@
                   />
                 </div>
               </div>
-              <div>
+             
                 <button
                   type="submit"
                   class="btn btn-gradient-primary mr-2"
@@ -120,10 +120,7 @@
                   ></span>
                   Salvando...
                 </button>
-              </div>
-              <!-- <button type="submit" class="btn btn-gradient-primary mr-2">
-                Salvar
-              </button> -->
+                           
               <button type="button" class="btn btn-light" @click="goBack">
                 Cancelar
               </button>

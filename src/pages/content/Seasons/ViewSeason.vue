@@ -1,27 +1,26 @@
 <template>
   <div>
-    <div class="mb-2"><h2 class="">Conteudos</h2></div>
+    <div class="mb-2"><h2 class="">Temporadas</h2></div>
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <div class="row mb-3">
+            
             <div class="col-md-6 mb-3">
-              <input
-                type="text"
-                class="form-control"
-                id="searchTerm"
-                v-model="searchTerm"
-                placeholder="Pesquisar..."
-              />
-            </div>
-            <div class="col-md-6 mb-3">
-              <button
+                <router-link
+                      :to="`/addseason/${id}`"
+                      type="button"
+                      class="btn btn-inverse-info btn-sm mr-2"
+                    >
+                      <i class="mdi mdi-plus"></i>
+                    </router-link>
+              <!-- <button
                 type="submit"
                 class="btn btn-gradient-primary mr-2"
-                @click="fetchData"
+                @click=""
               >
                 <i class="mdi mdi-account-search-outline menu-icon"></i>
-              </button>
+              </button> -->
             </div>
           </div>
 
@@ -30,60 +29,21 @@
               <thead>
                 <tr>
                   <th>Título</th>
-                  <th>Tipo</th>
-                  <th>Gênero</th>
-                  <th>Ano</th>
-                  <th>Imagem</th>
+                 
                   <th>Temporadas</th>
+                  <th>Ano</th>
                   <th>Ação</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="content in contents" :key="content._id">
-                  <td>{{ content.title }}</td>
-                  <td>{{ content.type }}</td>
+                <tr v-for="season in contents" :key="season._id">
+                  <td>{{ season.title }}</td>
+                  <td>{{ season.season_number }}</td>
+                  <td>{{ formatDate(season.release_year)}}</td>
                   <td>
-                    <ul>
-                      <li v-for="genre in content.genres" :key="genre">
-                        {{ genre }}
-                      </li>
-                    </ul>
-                  </td>
-                  <td>{{ formatDate(content.release_year) }}</td>
-                  <td>
-                    <a
-                      :href="`${axios.defaults.baseURL}/${content.image_url}`"
-                      target="_blank"
-                    >
-                      <img
-                        :src="`${axios.defaults.baseURL}/${content.image_url}`"
-                        alt="Image"
-                        class="img-fluid"
-                      />
-                    </a>
-                  </td>
-                  <td>
-                    <ul class="button-list">
-                      <li v-for="season in content.seasons" :key="season._id">
-                        <router-link
-                          :to="`/viewepisodes/${season._id}`"
-                          class="btn btn-inverse-info btn-sm mr-2 mt-2"
-                        >
-                          {{ season.season_number }}
-                        </router-link>
-                      </li>
-                    </ul>
-                  </td>
-                  <td>
+                   
                     <router-link
-                      :to="`/viewseason/${content._id}`"
-                      type="button"
-                      class="btn btn-inverse-info btn-sm mr-2"
-                    >
-                      <i class="mdi mdi-movie-roll"></i>
-                    </router-link>
-                    <router-link
-                      :to="`/editcontent/${content._id}`"
+                      :to="`/editseason/${season._id}`"
                       type="button"
                       class="btn btn-inverse-success btn-sm"
                     >
@@ -92,7 +52,7 @@
                     <button
                       type="button"
                       class="btn btn-inverse-danger btn-sm ml-2"
-                      @click="deleteContent(content._id, content.title)"
+                      @click="deleteContent(season._id, season.season_number)"
                     >
                       <i class="mdi mdi-delete"></i>
                     </button>
@@ -148,6 +108,7 @@ export default {
   data() {
     return {
       contents: [],
+      id : this.$route.params.id,
       editedContent: {}, // Inicializado como objeto vazio
       isModalActive: false, // Inicializado como falso (modal não visível)
       currentPage: 1,
@@ -191,7 +152,7 @@ export default {
 
       // Show confirmation dialog
       const confirmResult = await Swal.fire({
-        title: "Deseja excluir o Conteudo seguinte ?",
+        title: "Deseja excluir a temporada",
         text: `${name} ?`,
         icon: "warning",
         showCancelButton: true,
@@ -205,7 +166,7 @@ export default {
         this.loading = true;
         try {
           const token = Cookies.get("token"); // Assuming you are using cookies to store the token
-          const response = await axios.delete(`api/novel/delete/${id}`, {
+          const response = await axios.delete(`api/season/delete/${id}`, {
             headers: {
               token: token,
             },
@@ -292,37 +253,40 @@ export default {
     async fetchData() {
       try {
         this.loading = true;
-
         const token = Cookies.get("token");
-        // Prepare the query parameters for the API request
         const queryParams = {
           page: this.currentPage,
           pageSize: this.pageSize,
           searchTerm: this.searchTerm,
         };
-
-        const response = await axios.get("/api/novel/getall/", {
-          headers: {
-            token: token,
-          },
+        const id = this.$route.params.id;
+        const response = await axios.get(`/api/season/getbynovelid/${id}`, {
+          headers: { token: token },
           params: queryParams,
         });
 
-        this.contents = response.data.contents;
-        // console.log(response.data.transactions);
-        this.count = response.data.total;
-        this.totalPages = Math.ceil(this.count / this.pageSize);
-        this.firstEntryIndex = (this.currentPage - 1) * this.pageSize + 1;
-        this.lastEntryIndex = Math.min(
-          this.currentPage * this.pageSize,
-          this.count
-        );
+        console.log("Response Status:", response.status);
+        console.log("Response Data:", response.data);
+
+        if (
+          response.status === 200 &&
+          response.data.success &&
+          response.data.season.length > 0
+        ) {
+          this.contents = response.data.season; // Atribui o array de temporadas
+          this.count = response.data.season.length; // Define o número de itens
+          // Defina outras variáveis conforme necessário
+        } else {
+          this.contents = [];
+          this.count = 0;
+        }
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching data:", error);
       } finally {
         this.loading = false;
       }
     },
+
     applyFilter() {
       this.currentPage = 1;
       this.fetchData();
@@ -411,7 +375,7 @@ export default {
 }
 
 .season-button {
-  display: flex;
+  display: inline-block;
   padding: 5px 10px;
   margin: 5px;
   border: 1px solid #ccc;
@@ -427,7 +391,6 @@ export default {
 }
 .table-responsive {
   overflow-x: auto;
-  overflow-y: auto;
 }
 
 .table img {
@@ -452,17 +415,5 @@ export default {
   background-color: #007bff;
   border-color: #007bff;
   color: white;
-}
-.button-list {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.button-list li {
-  margin-right: 2px; /* Ajuste conforme necessário */
-  margin-bottom: 2px; /* Ajuste conforme necessário */
 }
 </style>
